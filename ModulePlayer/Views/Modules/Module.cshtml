@@ -1,0 +1,77 @@
+﻿@model Module
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script>
+    window.API_1484_11 = (function () {
+        var data = {
+            "cmi.core.student_id": "5873D3FB-EA85-4385-E55B-08D8C3BBB6E7",
+            "cmi.learner_name": "Joe Bloggs",
+            "cmi.location": "",
+            "cmi.completion_status": "incomplete",
+            "cmi.suspend_data": null,
+            "cmi.success_status": "",
+            "cmi.score.raw": 0,
+            "cmi.score.min": 0,
+            "cmi.score.max": 0,
+            "cmi.score.scaled": 0,
+            "initialised": false
+        };
+        return {
+            Initialize: function () {
+                console.log("API - init");
+                data["initialised"] = true;
+                return "true";
+            },
+            Commit: function () {
+                console.log("API - commit");
+                if (data["initialised"]) {
+                    var postData = {
+                        "SuccessStatus": data["cmi.success_status"],
+                        "CompletionStatus": data["cmi.completion_status"],
+                        "SuspendData": data["cmi.suspend_data"],
+                        "Location": data["cmi.location"],
+                        "RawScore": data["cmi.score.raw"],
+                        "MinScore": data["cmi.score.min"],
+                        "MaxScore": data["cmi.score.max"],
+                        "ScaledScore": data["cmi.score.scaled"],
+                    };
+                    console.log(postData);
+                }
+
+
+                return "true";
+            },
+            Finish: function () {
+                console.log("API - finish");
+                return "true";
+            },
+            Terminate: function () {
+                console.log("API - terminate");
+                return "true";
+            },
+            GetValue: function (model) {
+                console.log("API - get value - ", model);
+                return data[model] || "";
+            },
+            SetValue: function (model, value) {
+                console.log("API - set value - ", model, value);
+                data[model] = value;
+                return "true";
+            },
+            GetLastError: function() {
+                return "0";
+            },
+            GetErrorString: function (errorCode) {
+                return "No error";
+            },
+            GetDiagnostic: function (errorCode) {
+                return "No error";
+            }
+        };
+    })();
+</script>
+
+    <iframe style="width: 100vh; height:100vw;" src="@Model.Url"></iframe>
