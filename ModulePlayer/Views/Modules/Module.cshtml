@@ -7,20 +7,20 @@
 <script>
     var API = (function () {
         var data = {
-            "cmi.core.student_id": "5873D3FB-EA85-4385-E55B-08D8C3BBB6E7",
-            "cmi.learner_name": "Joe Bloggs",
-            "cmi.core.student_name": "Joe Bloggs",
-            "cmi.location": "",
-            "cmi.core.lesson_location": "",
-            "cmi.completion_status": "incomplete",
+            //"cmi.core.student_id": "5873D3FB-EA85-4385-E55B-08D8C3BBB6E7",
+            //"cmi.learner_name": "Joe Bloggs",
+            //"cmi.core.student_name": "Joe Bloggs",
+            //"cmi.location": "",
+            "cmi.core.lesson_location": "index.html#/lessons/y3iqZjwZMpoL_ZI0SnktKjK-WYBolENv",
+            //"cmi.completion_status": "incomplete",
             "cmi.core.lesson_status": "not attempted",
-            "cmi.suspend_data": null,
-            "cmi.success_status": "",
-            "cmi.score.raw": 0,
-            "cmi.core.score.raw": 0,
-            "cmi.score.min": 0,
-            "cmi.score.max": 0,
-            "cmi.score.scaled": 0,
+            //"cmi.suspend_data": null,
+            //"cmi.success_status": "",
+            //"cmi.score.raw": 0,
+            //"cmi.core.score.raw": 0,
+            //"cmi.score.min": 0,
+            //"cmi.score.max": 0,
+            //"cmi.score.scaled": 0,
             "initialised": false
         };
         return {
@@ -37,17 +37,7 @@
             Commit: function () {
                 console.log("%cAPI Commit", " background: white; border: 3px solid orange; color: orange;-size: 25px;margin: 20px; padding: 10px;");
                 if (data["initialised"]) {
-                    var postData = {
-                        "SuccessStatus": data["cmi.success_status"],
-                        "CompletionStatus": data["cmi.completion_status"],
-                        "SuspendData": data["cmi.suspend_data"],
-                        "Location": data["cmi.location"],
-                        "RawScore": data["cmi.score.raw"],
-                        "MinScore": data["cmi.score.min"],
-                        "MaxScore": data["cmi.score.max"],
-                        "ScaledScore": data["cmi.score.scaled"],
-                    };
-                    console.log(postData);
+                    console.log(data);
                 }
 
 
@@ -56,17 +46,7 @@
             LMSCommit: function () {
                 console.log("%cAPI Commit", " background: white; border: 3px solid orange; color: orange;-size: 25px;margin: 20px; padding: 10px;");
                 if (data["initialised"]) {
-                    var postData = {
-                        "SuccessStatus": data["cmi.success_status"],
-                        "CompletionStatus": data["cmi.completion_status"],
-                        "SuspendData": data["cmi.suspend_data"],
-                        "Location": data["cmi.location"],
-                        "RawScore": data["cmi.score.raw"],
-                        "MinScore": data["cmi.score.min"],
-                        "MaxScore": data["cmi.score.max"],
-                        "ScaledScore": data["cmi.score.scaled"],
-                    };
-                    console.log(postData);
+                    console.log(data);
                 }
 
 
