@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using ModulePlayer.Azure;
 using ModulePlayer.DataAccess;
+using ModulePlayer.Models;
+using Newtonsoft.Json.Linq;
 
 namespace ModulePlayer.Controllers
 {
@@ -41,9 +43,10 @@ namespace ModulePlayer.Controllers
         }
 
         [HttpPut("tincan/statements")]
-        public async Task<IActionResult> TinCan2([FromQuery]string statementId)
+        public async Task<IActionResult> TinCan2([FromQuery]string statementId, [FromBody] object data)
         {
-            return new OkResult();
+            var dataString = data.ToString();
+            return Ok(dataString);
         }
 
         [HttpGet("module/{id}")]
