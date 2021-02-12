@@ -9,6 +9,7 @@ using MimeKit;
 using ModulePlayer.Azure;
 using ModulePlayer.DataAccess;
 using ModulePlayer.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ModulePlayer.Controllers
@@ -37,7 +38,7 @@ namespace ModulePlayer.Controllers
         }
 
         [HttpPut("tincan/activities/state")]
-        public async Task<IActionResult> TinCan3([FromQuery] string stateId, [FromQuery] string activityId)
+        public async Task<IActionResult> TinCan3([FromQuery] string stateId, [FromQuery] string activityId, [FromBody] object data)
         {
             return new OkResult();
         }
@@ -45,10 +46,19 @@ namespace ModulePlayer.Controllers
         [HttpPut("tincan/statements")]
         public async Task<IActionResult> TinCan2([FromQuery]string statementId, [FromBody] object data)
         {
+            var dataDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(data.ToString());
+            if (dataDictionary.ContainsKey("result"))
+            {
+                var resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(dataDictionary["result"].ToString());
+                var extensions = JsonConvert.DeserializeObject<Dictionary<string, object>>(resultDictionary["extensions"].ToString());
+                var progress = extensions["http://w3id.org/xapi/cmi5/result/extensions/progress"];
+            }
+     
             var dataString = data.ToString();
             return Ok(dataString);
         }
 
+  
         [HttpGet("module/{id}")]
         public async Task<IActionResult> Module(Guid id)
         {
