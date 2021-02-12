@@ -116,8 +116,12 @@
 </script>
 
 @{
-    var query = "?endpoint=https://localhost:44340/tincan&auth=OjFjMGY4NTYxNzUwOGI4YWY0NjFkNzU5MWUxMzE1ZGQ1&actor={ 'name' : ['Project Tin Can'], 'mbox' : ['mailto:tincan@scorm.com'] }&registration=760e3480-ba55-4991-94b0-01820dbd23a2&activity_id=http://example.scorm.com/tincan/example/simplestatement";
-    var url = @Model.Url + query;
+    var query = "?endpoint=https://localhost:44340/tincan";
+    var url = Model.Url;
+    if (Model.Packagetype == "xApi" || Model.Packagetype == "cmi5")
+    {
+       url = @Model.Url + query;
+    }
 
 }
 
