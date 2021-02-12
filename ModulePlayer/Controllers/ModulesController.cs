@@ -28,20 +28,20 @@ namespace ModulePlayer.Controllers
             return View(modules);
         }
 
-        [HttpPost("tincan")]
-        public async Task<IActionResult> TinCan()
+        [HttpGet("tincan/activities/state")]
+        public async Task<IActionResult> TinCan([FromQuery]string stateId, [FromQuery]string activityId)
         {
             return new OkResult();
         }
 
-        [HttpGet("tincan")]
-        public async Task<IActionResult> TinCan1()
+        [HttpPut("tincan/activities/state")]
+        public async Task<IActionResult> TinCan3([FromQuery] string stateId, [FromQuery] string activityId)
         {
             return new OkResult();
         }
 
-        [HttpPut("tincan")]
-        public async Task<IActionResult> TinCan2()
+        [HttpPut("tincan/statements")]
+        public async Task<IActionResult> TinCan2([FromQuery]string statementId)
         {
             return new OkResult();
         }

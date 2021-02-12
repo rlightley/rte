@@ -1,9 +1,11 @@
-﻿@model Module
+﻿@using System.Text.Encodings.Web
+@model Module
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+<script src="~/RusticiSoftware-TinCanJS-0.50.0-0-g8733f14/RusticiSoftware-TinCanJS-8733f14/build/tincan.js"></script>
 <script>
     var API = (function () {
         var data = {
@@ -116,13 +118,38 @@
 </script>
 
 @{
-    var query = "?endpoint=https://localhost:44340/tincan";
+
+    var encoder = UrlEncoder.Create();
+
+    var query = "?endpoint=https://localhost:44340/tincan" +
+                "&auth=Basic OjFjMGY4NTYxNzUwOGI4YWY0NjFkNzU5MWUxMzE1ZGQ1" +
+                "&actor={\"name\": [\"First Last\"], \"mbox\": [\"mailto: firstlast@mycompany.com\"]}" +
+                "&activity_id=61XkSYC1ht2_course_id" +
+                "&registration=760e3480-ba55-4991-94b0-01820dbd23a2";
     var url = Model.Url;
     if (Model.Packagetype == "xApi" || Model.Packagetype == "cmi5")
     {
-       url = @Model.Url + query;
+        url = @Model.Url + query;
     }
 
 }
 
+@*<script>
+        var lrs;
+
+        try {
+            lrs = new TinCan.LRS(
+                {
+                    endpoint: "https://localhost:44340",
+                    username: "<Test User>",
+                    password: "<Test Password>",
+                    allowFail: false
+                }
+            );
+        }
+        catch (ex) {
+            console.log("Failed to setup LRS object: ", ex);
+            // TODO: do something with error, can't communicate with LRS
+        }
+    </script>*@
 <iframe style="width: 100vh; height:100vw;" src="@url"></iframe>
