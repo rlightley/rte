@@ -11,9 +11,9 @@
             //"cmi.learner_name": "Joe Bloggs",
             //"cmi.core.student_name": "Joe Bloggs",
             //"cmi.location": "",
-            "cmi.core.lesson_location": "index.html#/lessons/y3iqZjwZMpoL_ZI0SnktKjK-WYBolENv",
+            //"cmi.core.lesson_location": "index.html#/lessons/y3iqZjwZMpoL_ZI0SnktKjK-WYBolENv",
             //"cmi.completion_status": "incomplete",
-            "cmi.core.lesson_status": "not attempted",
+            //"cmi.core.lesson_status": "not attempted",
             //"cmi.suspend_data": null,
             //"cmi.success_status": "",
             //"cmi.score.raw": 0,
@@ -112,7 +112,13 @@
             }
         };
     })();
-var API_1484_11 = API;
+    var API_1484_11 = API;
 </script>
 
-<iframe style="width: 100vh; height:100vw;" src="@Model.Url"></iframe>
+@{
+    var query = "?endpoint=https://localhost:44340/tincan&auth=OjFjMGY4NTYxNzUwOGI4YWY0NjFkNzU5MWUxMzE1ZGQ1&actor={ 'name' : ['Project Tin Can'], 'mbox' : ['mailto:tincan@scorm.com'] }&registration=760e3480-ba55-4991-94b0-01820dbd23a2&activity_id=http://example.scorm.com/tincan/example/simplestatement";
+    var url = @Model.Url + query;
+
+}
+
+<iframe style="width: 100vh; height:100vw;" src="@url"></iframe>

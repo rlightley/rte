@@ -1,0 +1,9 @@
+{
+  "name": "ModulePlayer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "tincanjs": "^0.50.0"
+  }
+}

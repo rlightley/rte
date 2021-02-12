@@ -10,5 +10,7 @@ namespace ModulePlayer.Models
     {
         public IFormFile File { get; set; }
         public string Title { get; set; }
+        public string Packagetype { get; set; }
+        public List<string> Packagetypes { get; set; }
     }
 }

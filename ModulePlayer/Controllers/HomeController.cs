@@ -19,6 +19,12 @@ namespace ModulePlayer.Controllers
 {
     public class HomeController : Controller
     {
+        const string TINCAN = "xApi";
+        const string SCORM = "SCORM 1.2";
+        const string SCORM2004 = "SCORM 2004";
+        const string CMI5 = "cmi5";
+
+
         private readonly ILogger<HomeController> _logger;
         private readonly IAzureStorageHelper _storageHelper;
         private readonly IOptions<AzureStorageConfig> _config;
@@ -35,7 +41,20 @@ namespace ModulePlayer.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var packagetypes = new List<string>()
+            {
+                SCORM,
+                SCORM2004,
+                TINCAN,
+                CMI5
+            };
+
+            var model = new UploadViewModel()
+            {
+                Packagetypes = packagetypes
+            };
+            
+            return View(model);
         }
 
         [RequestSizeLimit(2147483648)]
@@ -58,14 +77,35 @@ namespace ModulePlayer.Controllers
             }
 
             string url;
+            var manifestName = "";
+            var entryTag = "";
+            
+            if (model.Packagetype == SCORM || model.Packagetype == SCORM2004)
+            {
+                manifestName = "/imsmanifest.xml";
+                entryTag = "resource";
+            }
 
-            var fileBytes = await _fileDownloader.DownloadFileBytes(storageUrl + "/imsmanifest.xml");
+            if (model.Packagetype == TINCAN)
+            {
+                manifestName = "/tincan.xml";
+                entryTag = "launch";
+            }
+
+
+            if (model.Packagetype == CMI5)
+            {
+                manifestName = "/cmi5.xml";
+                entryTag = "url";
+            }
+
+            var fileBytes = await _fileDownloader.DownloadFileBytes(storageUrl + manifestName);
 
             if (fileBytes == null)
             {
                 var fileUrl = storageUrl.Split("-");
                 var folder = fileUrl[^1].Split(".");
-                fileBytes = await _fileDownloader.DownloadFileBytes(storageUrl + "/" + folder[0] + "/imsmanifest.xml");
+                fileBytes = await _fileDownloader.DownloadFileBytes(storageUrl + "/" + folder[0] + manifestName);
                 url = "playcourse/" + storageUrl + "/" + folder[0] + "/";
             }
             else
@@ -76,12 +116,20 @@ namespace ModulePlayer.Controllers
             var manifest = new XmlDocument();
             var ms = new MemoryStream(fileBytes);
             manifest.Load(ms);
-            var elemList = manifest.GetElementsByTagName("resource");
+            var elemList = manifest.GetElementsByTagName(entryTag);
 
-            var attrVal = elemList[0].Attributes["href"].Value;
+            var attrVal = "";
+            if (model.Packagetype == SCORM || model.Packagetype == SCORM2004)
+            {
+                attrVal = elemList[0].Attributes["href"].Value;
+            }
+            else
+            {
+                attrVal = elemList[0].InnerXml;
+            }
 
             var courseFileUrl = url + attrVal;
-            await _ctx.Modules.AddAsync(new Module() {Title = model.Title, Url = courseFileUrl});
+            await _ctx.Modules.AddAsync(new Module() {Title = model.Title, Url = courseFileUrl, Packagetype = model.Packagetype});
             await _ctx.SaveChangesAsync();
             return RedirectToAction("Index", "Modules");
         }

@@ -28,6 +28,24 @@ namespace ModulePlayer.Controllers
             return View(modules);
         }
 
+        [HttpPost("tincan")]
+        public async Task<IActionResult> TinCan()
+        {
+            return new OkResult();
+        }
+
+        [HttpGet("tincan")]
+        public async Task<IActionResult> TinCan1()
+        {
+            return new OkResult();
+        }
+
+        [HttpPut("tincan")]
+        public async Task<IActionResult> TinCan2()
+        {
+            return new OkResult();
+        }
+
         [HttpGet("module/{id}")]
         public async Task<IActionResult> Module(Guid id)
         {
