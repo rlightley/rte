@@ -9,8 +9,7 @@ namespace ModulePlayer.Models
     public class UploadViewModel
     {
         public IFormFile File { get; set; }
-        public string Title { get; set; }
-        public string Packagetype { get; set; }
+        public string PackageType { get; set; }
         public List<string> Packagetypes { get; set; }
     }
 }

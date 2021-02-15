@@ -15,7 +15,7 @@
             //"cmi.location": "",
             //"cmi.core.lesson_location": "index.html#/lessons/y3iqZjwZMpoL_ZI0SnktKjK-WYBolENv",
             //"cmi.completion_status": "incomplete",
-            //"cmi.core.lesson_status": "not attempted",
+            "cmi.core.lesson_status": "not attempted",
             //"cmi.suspend_data": null,
             //"cmi.success_status": "",
             //"cmi.score.raw": 0,
@@ -124,8 +124,8 @@
     var query = "?endpoint=https://localhost:44340/tincan" +
                 "&auth=Basic OjFjMGY4NTYxNzUwOGI4YWY0NjFkNzU5MWUxMzE1ZGQ1" +
                 "&actor={\"name\": [\"First Last\"], \"mbox\": [\"mailto: firstlast@mycompany.com\"]}" +
-                "&activity_id=61XkSYC1ht2_course_id" +
-                "&registration=760e3480-ba55-4991-94b0-01820dbd23a2";
+                $"&activity_id={@Model.Id}" +
+                $"&registration={@Model.Id}";
     var url = Model.Url;
     if (Model.Packagetype == "xApi" || Model.Packagetype == "cmi5")
     {
@@ -134,22 +134,29 @@
 
 }
 
-@*<script>
-        var lrs;
-
-        try {
-            lrs = new TinCan.LRS(
-                {
-                    endpoint: "https://localhost:44340",
-                    username: "<Test User>",
-                    password: "<Test Password>",
-                    allowFail: false
-                }
-            );
-        }
-        catch (ex) {
-            console.log("Failed to setup LRS object: ", ex);
-            // TODO: do something with error, can't communicate with LRS
-        }
-    </script>*@
-<iframe style="width: 100vh; height:100vw;" src="@url"></iframe>
+<div class="container-fluid">
+    <div class="row mb-5">
+        <div class="col-4">
+            <p>Progress: @Model.TrackingData.Progress%</p>
+        </div>
+        <div class="col-4">
+            <p>Is Complete: @Model.TrackingData.Complete.ToString()</p>
+        </div>
+        <div class="col-4">
+            <p>Completed times: @Model.CompletedTimes</p>
+        </div>
+        <div class="col-4">
+            <p>Restarted times: @Model.RestartedTimes</p>
+        </div>
+        <div class="col-4">
+            <a asp-controller="TinCan" asp-action="ResetModule" asp-route-id="@Model.Id">
+            <button class="btn btn-danger">Reset Progress</button>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" style="height: 750px">
+            <iframe style="width: 100%; height: 100%;" src="@url"></iframe>
+        </div>
+    </div>
+</div>

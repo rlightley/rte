@@ -6,10 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using ModulePlayer.Azure;
 using ModulePlayer.Config;
@@ -48,6 +50,8 @@ namespace ModulePlayer
                 o.MultipartHeadersLengthLimit = int.MaxValue;
             });
             services.AddControllersWithViews();
+            services.AddControllers(options =>
+                options.InputFormatters.Add(new ByteArrayInputFormatter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

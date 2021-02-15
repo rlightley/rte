@@ -41,7 +41,7 @@ namespace ModulePlayer.Controllers
 
         public IActionResult Index()
         {
-            var packagetypes = new List<string>()
+            var PackageTypes = new List<string>()
             {
                 SCORM,
                 SCORM2004,
@@ -51,7 +51,7 @@ namespace ModulePlayer.Controllers
 
             var model = new UploadViewModel()
             {
-                Packagetypes = packagetypes
+                Packagetypes = PackageTypes
             };
             
             return View(model);
@@ -80,20 +80,20 @@ namespace ModulePlayer.Controllers
             var manifestName = "";
             var entryTag = "";
             
-            if (model.Packagetype == SCORM || model.Packagetype == SCORM2004)
+            if (model.PackageType == SCORM || model.PackageType == SCORM2004)
             {
                 manifestName = "/imsmanifest.xml";
                 entryTag = "resource";
             }
 
-            if (model.Packagetype == TINCAN)
+            if (model.PackageType == TINCAN)
             {
                 manifestName = "/tincan.xml";
                 entryTag = "launch";
             }
 
 
-            if (model.Packagetype == CMI5)
+            if (model.PackageType == CMI5)
             {
                 manifestName = "/cmi5.xml";
                 entryTag = "url";
@@ -119,7 +119,7 @@ namespace ModulePlayer.Controllers
             var elemList = manifest.GetElementsByTagName(entryTag);
 
             var attrVal = "";
-            if (model.Packagetype == SCORM || model.Packagetype == SCORM2004)
+            if (model.PackageType == SCORM || model.PackageType == SCORM2004)
             {
                 attrVal = elemList[0].Attributes["href"].Value;
             }
@@ -129,7 +129,7 @@ namespace ModulePlayer.Controllers
             }
 
             var courseFileUrl = url + attrVal;
-            await _ctx.Modules.AddAsync(new Module() {Title = model.Title, Url = courseFileUrl, Packagetype = model.Packagetype});
+            await _ctx.Modules.AddAsync(new Module(model.File.FileName, courseFileUrl, model.PackageType));
             await _ctx.SaveChangesAsync();
             return RedirectToAction("Index", "Modules");
         }

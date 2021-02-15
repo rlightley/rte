@@ -7,14 +7,24 @@ namespace ModulePlayer.Models
 {
     public class TrackingData
     {
-        public TrackingData()
+        protected TrackingData()
         {
-            Id = Guid.NewGuid();
+            
         }
 
+        public TrackingData(string progress, bool complete, string location, string suspendData)
+        {
+            Id = Guid.NewGuid();
+            Progress = progress;
+            Complete = complete;
+            Location = location;
+            SuspendData = suspendData;
+        }
+        
         public Guid Id { get; set; }
         public string Progress { get; set; }
         public bool Complete { get; set; }
         public string Location { get; set; }
+        public string SuspendData { get; set; }
     }
 }

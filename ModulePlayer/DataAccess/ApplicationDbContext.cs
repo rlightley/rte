@@ -14,5 +14,8 @@ namespace ModulePlayer.DataAccess
         }
 
         public DbSet<Module> Modules { get; set; }
+        public DbSet<TrackingData> TrackingData { get; set; }
+        
+        
     }
 }

@@ -17,18 +17,13 @@
             }
             <div class="form-group">
                 <p>Paste me from above</p>
-                <label asp-for="Packagetype" class="control-label"></label>
-                <input asp-for="Packagetype" class="form-control"/>
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="PackageType" class="control-label"></label>
+                <input asp-for="PackageType" class="form-control"/>
+                <span asp-validation-for="PackageType" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input asp-for="File" />
-
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

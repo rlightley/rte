@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModulePlayer.DataAccess;
 
 namespace ModulePlayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210212181225_Tracking")]
+    partial class Tracking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,14 +27,8 @@ namespace ModulePlayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CompletedTimes")
-                        .HasColumnType("int");
-
                     b.Property<string>("Packagetype")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RestartedTimes")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -63,9 +59,6 @@ namespace ModulePlayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Progress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SuspendData")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
